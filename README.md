@@ -29,8 +29,6 @@ The socket location must be published so that clients know where to find it. The
 export DOCKER_HOST=/run/user/$(id -u)/podman/podman.sock
 ```
 
-You will also need to set the environment variable `DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock be
-
 rootless docker support
 -----------------------
 
