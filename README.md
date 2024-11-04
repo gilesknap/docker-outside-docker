@@ -7,9 +7,6 @@ This is the lightest touch approach to launching containers from inside containe
 
 This approach can work with docker or podman on the host.
 
-Because devcontainer.json is not parameterized I have created two versions of the file. One for docker and one for podman. The podman version is in the main branch of this repo and the docker version is in the 'docker' branch.
-
-(we can get most of the way to a generic devcontainer.json using environment variables. But the separate branches make for a cleaner implementation that is easy to read)
 
 rootless podman support
 -----------------------
@@ -22,19 +19,20 @@ To create a user podman daemon you can run the following command:
 systemctl --user enable podman --now
 ```
 
-This will create a user podman daemon with docker API compatible socket. The socket location can be determined using either of the following commands:
-
-```bash
-echo /run/user/${id -u}/podman/podman.sock
-echo $XDG_RUNTIME_DIR/podman/podman.sock
-```
+This will create a user podman daemon with docker API compatible socket.
 
 This command need only be run once - the user podman daemon will start automatically when you log in.
 
-This is all you need to do before launching this devcontainer. You will be able to use any docker command from inside the container and it will be executed in the hosts rootless podman.
+The socket location must be published so that clients know where to find it. The following command will do this. You would need to run this before launching vscode, it is recommended that you place this command in `.bashrc` or `.zshrc` so that you can use it in any terminal.
 
-rootful docker support
-----------------------
+```bash
+export DOCKER_HOST=/run/user/${id -u}/podman/podman.sock
+```
+
+You will also need to set the environment variable `DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock be
+
+rootless docker support
+-----------------------
 
 To use this devcontainer with docker you must checkout the docker branch of this repo. The devcontainer.json file in that branch is configured to use the docker socket in the host.
 
