@@ -26,9 +26,9 @@
     "runArgs": [
         // Allows the container to easily access the host X11 display
         "--net=host",
-        // Make sure SELinux does not disable access to host mounts like tmp
+        // Make sure SELinux does not disable access to host mounts like /tmp
         "--security-opt=label=disable",
-        // "--storage-opt=ignore_chown_errors=true",
+        // Mount the podman socket
         "-v${localEnv:XDG_RUNTIME_DIR}/podman:${localEnv:XDG_RUNTIME_DIR}/podman",
         // "-v=/var:/var",
         "-e=DOCKER_HOST=unix://${localEnv:XDG_RUNTIME_DIR}/podman/podman.sock"
