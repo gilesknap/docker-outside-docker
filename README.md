@@ -26,7 +26,7 @@ This command need only be run once - the user podman daemon will start automatic
 The socket location must be published so that clients know where to find it. The following command will do this. You would need to run this before launching vscode, it is recommended that you place this command in `.bashrc` or `.zshrc` so that you can use it in any terminal.
 
 ```bash
-export DOCKER_HOST=/run/user/${id -u}/podman/podman.sock
+export DOCKER_HOST=/run/user/$(id -u)/podman/podman.sock
 ```
 
 You will also need to set the environment variable `DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock be
@@ -34,13 +34,24 @@ You will also need to set the environment variable `DOCKER_HOST=unix://$XDG_RUNT
 rootless docker support
 -----------------------
 
-To use this devcontainer with docker you must checkout the docker branch of this repo. The devcontainer.json file in that branch is configured to use the docker socket in the host.
+To use this devcontainer with docker you need to switch to rootless docker. With a standard docker installation you can add rootless support with this command (follow the instructions that it prints):
 
-Docker will need to be installed on the host and the user must be a member of the docker group. This is the default configuration for docker on most systems.
+```bash
+dockerd-rootless-setuptool.sh -f install
+```
 
-No further configuration is required before launching this devcontainer.
+The -f means that you can keep rootless and rootful docker both available, configure for rootless docker with the following command:
 
-other combinations
-------------------
+```bash
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+```
 
-I have chosen rootless podman and rootful docker as the two examples because they are the default configurations for these tools. rootful podman and rootless docker would also be possible, you would just need to configure the hosts container runtime accordingly and pass the correct socket into the devcontainer.
+You may place this command in `.bashrc` or `.zshrc` so that you can use it in any terminal. But note that you should unset this variable to use rootful docker.
+
+
+rootful combinations
+--------------------
+
+Using rootful docker or podman on the host with this approach is not recommended as you would need to be root inside the container to access the socket.
+
+Modern docker has great rootless support and it is a better choice for devcontainers in particular.
