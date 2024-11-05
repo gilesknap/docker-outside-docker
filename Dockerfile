@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-24.04 as developer
+FROM ubuntu as developer
 
 ENV DOCKER=docker-27.3.1
 
 # install pre-requisites
 RUN apt-get update && \
-    apt-get install -y curl && \
+    apt-get install -y curl git && \
     apt-get clean
 
 # install the docker ce cli binary

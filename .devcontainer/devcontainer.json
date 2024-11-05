@@ -17,12 +17,6 @@
             ]
         }
     },
-    "features": {
-        // Some default things like git config, zsh and ssh keys
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "upgradePackages": false
-        }
-    },
     "runArgs": [
         // Make sure SELinux does not disable access to host mounts like /tmp
         "--security-opt=label=disable",
