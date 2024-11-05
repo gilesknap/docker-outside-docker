@@ -1,10 +1,16 @@
 Containers in Containers Demo
 =============================
 
+WHat
+----
 This repo is a minimal example of how to create a (vscode) developer container that is able to create and manage other containers.
 
+How
+---
 This simple approach installs a minimal docker cli binary only and mounts the socket of the host's docker daemon into the container. Thus the containers you manage from inside this developer container are actually running on the host itself.
 
+Why
+---
 This is the lightest touch approach to launching containers from inside containers, But do be aware of the security risks, as a compromised developer container would be able to launch any container on the host.
 
 This approach can work with docker or podman on the host.
@@ -25,7 +31,9 @@ This will create a user podman daemon with docker API compatible socket.
 
 This command need only be run once - the user podman daemon will start automatically when you log in.
 
-The socket location must be published so that clients know where to find it. The following command will do this. You would need to run this before launching vscode, it is recommended that you place this command in `.bashrc` or `.zshrc` so that you can use it in any terminal.
+The socket location must be published so that clients know where to find it. The following command will do this. You would need to run this before launching vscode. 
+
+It is recommended that you place the above command in `.bashrc` or `.zshrc` so that it is always set. This ensures that when you make a remote connection to your vscode server that it will also pick up the socket configuration.
 
 ```bash
 export DOCKER_HOST=/run/user/$(id -u)/podman/podman.sock
@@ -48,7 +56,7 @@ The -f means that you can keep rootless and rootful docker both available, confi
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 ```
 
-You may place this command in `.bashrc` or `.zshrc` so that you can use it in any terminal. But note that you should unset this variable to use rootful docker.
+You may place this command in `.bashrc` or `.zshrc` so that it is always available. Simply unset this variable to use rootful docker. Note that rootless docker keeps a cache per user and rootful keeps a cache per workstation. Rootless and rootful caches are completely separate.
 
 
 rootful combinations
