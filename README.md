@@ -7,7 +7,7 @@ This repo is a minimal example of how to create a (vscode) developer container t
 
 How
 ---
-This simple approach installs a minimal docker cli binary only and mounts the socket of the host's docker daemon into the container. Thus the containers you manage from inside this developer container are actually running on the host itself.
+This simple approach installs a minimal docker cli binary only and mounts the socket of the host's docker daemon into the container. Thus the containers you manage from inside this developer container are actually running in the host's docker or podman instance.
 
 Why
 ---
