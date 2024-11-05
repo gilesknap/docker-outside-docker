@@ -24,8 +24,6 @@
         }
     },
     "runArgs": [
-        // Allows the container to easily access the host X11 display
-        "--net=host",
         // Make sure SELinux does not disable access to host mounts like /tmp
         "--security-opt=label=disable",
         // Mount the user sockets folder

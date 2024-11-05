@@ -1,7 +1,9 @@
 Containers in Containers Demo
 =============================
 
-This repo is a minimal example of how to create a (vscode) developer container that is able to create and manage other containers. This simple approach installs a minimal docker cli binary only and mounts the socket of the host's docker daemon into the container. Thus the containers you manage from inside this developer container are actually running on the host itself.
+This repo is a minimal example of how to create a (vscode) developer container that is able to create and manage other containers.
+
+This simple approach installs a minimal docker cli binary only and mounts the socket of the host's docker daemon into the container. Thus the containers you manage from inside this developer container are actually running on the host itself.
 
 This is the lightest touch approach to launching containers from inside containers, But do be aware of the security risks, as a compromised developer container would be able to launch any container on the host.
 
@@ -11,7 +13,7 @@ This approach can work with docker or podman on the host.
 rootless podman support
 -----------------------
 
-Podman does not by default run a daemon. However, it does support creating a user daemon which presents the same API as docker. This is really useful for making int compatible with clients to the docker API, the docker cli included.
+Podman does not by default run a daemon. However, it does support creating a user daemon which presents the same API as docker. This is really useful for making it compatible with clients to the docker API.
 
 To create a user podman daemon you can run the following command:
 
@@ -32,7 +34,9 @@ export DOCKER_HOST=/run/user/$(id -u)/podman/podman.sock
 rootless docker support
 -----------------------
 
-To use this devcontainer with docker you need to switch to rootless docker. With a standard docker installation you can add rootless support with this command (follow the instructions that it prints):
+To use this devcontainer with docker you need to switch to rootless docker.
+
+With a standard docker installation you can add rootless support with this command (follow the instructions that it prints):
 
 ```bash
 dockerd-rootless-setuptool.sh -f install
@@ -52,4 +56,4 @@ rootful combinations
 
 Using rootful docker or podman on the host with this approach is not recommended as you would need to be root inside the container to access the socket.
 
-Modern docker has great rootless support and it is a better choice for devcontainers in particular.
+Modern docker has great rootless support and it is a better choice for devcontainers in particular IMHO.
