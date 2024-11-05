@@ -1,7 +1,7 @@
 Containers in Containers Demo
 =============================
 
-WHat
+What
 ----
 This repo is a minimal example of how to create a (vscode) developer container that is able to create and manage other containers.
 
