@@ -36,7 +36,7 @@ This command need only be run once - the user podman daemon will start automatic
 
 The socket location must be published so that clients know where to find it. The following command will do this. You would need to run this before launching vscode. 
 ```bash
-export DOCKER_HOST=/run/user/$(id -u)/podman/podman.sock
+export DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock
 ```
 
 It is recommended that you place the above command in `.bashrc` or `.zshrc` so that it is always set. This ensures that when you make a remote connection to your vscode server that it will also pick up the socket configuration.
